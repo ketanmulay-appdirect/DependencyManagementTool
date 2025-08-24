@@ -63,14 +63,8 @@ cd security-dependency-tool
 
 ### 2. Install Dependencies
 ```bash
-# Install backend dependencies
-cd src/backend && npm install
-
-# Install frontend dependencies
-cd ../frontend && npm install
-
-# Return to root directory
-cd ../..
+# Install all dependencies with a single command
+npm run install:all
 ```
 
 ### 3. Environment Configuration
@@ -108,14 +102,12 @@ REDIS_URL=redis://localhost:6379
 
 ### 4. Start Development Servers
 ```bash
-# Start backend server (Terminal 1)
-cd src/backend && npm run dev
+# Start both frontend and backend with a single command
+npm run dev
 
-# Start frontend server (Terminal 2)
-cd src/frontend && npm run dev
-
-# Frontend will be available at: http://localhost:3000
-# Backend API will be available at: http://localhost:3001
+# This will start:
+# - Frontend at: http://localhost:3000
+# - Backend API at: http://localhost:3001
 ```
 
 ## 📋 Usage Guide
@@ -202,34 +194,36 @@ Content-Type: application/json
 ## 🧪 Testing
 
 ```bash
-# Run backend tests
-cd src/backend && npm test
+# Run all tests with a single command
+npm test
 
-# Run frontend tests
-cd src/frontend && npm test
+# Run tests for specific service
+npm run test:frontend  # Frontend tests only
+npm run test:backend   # Backend tests only
 
 # Run with coverage (from respective directories)
-npm run test:coverage
+cd src/frontend && npm run test:coverage
+cd src/backend && npm run test:coverage
 ```
 
 ## 📊 Development Scripts
 
 ```bash
-# Backend Development (from src/backend/)
-npm run dev             # Start backend development server
-npm run build           # Build backend for production
-npm run start           # Start production backend server
-npm test                # Run backend tests
+# Development (from root directory)
+npm run dev             # Start both frontend and backend
+npm run install:all     # Install all dependencies
+npm test                # Run all tests
+npm run lint            # Run linting for both services
 
-# Frontend Development (from src/frontend/)
-npm run dev             # Start frontend development server
-npm run build           # Build frontend for production
-npm run start           # Start production frontend server
-npm test                # Run frontend tests
+# Building (from root directory)
+npm run build           # Build both frontend and backend
+npm run start           # Start both services in production mode
 
-# Code Quality (from respective directories)
-npm run lint            # Run ESLint
-npm run type-check      # TypeScript type checking
+# Individual Services (if needed)
+npm run dev:frontend    # Start frontend only
+npm run dev:backend     # Start backend only
+npm run build:frontend  # Build frontend only
+npm run build:backend   # Build backend only
 ```
 
 ## 🌟 Advanced Features

@@ -4,14 +4,22 @@
   "description": "A comprehensive web-based tool for managing security vulnerabilities identified by Wiz Security across multiple repositories",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev": "concurrently --names \"FRONTEND,BACKEND\" --prefix-colors \"cyan,magenta\" \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd src/frontend && npm run dev",
     "dev:backend": "cd src/backend && npm run dev",
-    "build": "cd src/frontend && npm run build",
-    "start": "cd src/backend && npm start",
-    "install:all": "npm install && cd src/frontend && npm install && cd ../backend && npm install",
-    "test": "jest",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx"
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd src/frontend && npm run build",
+    "build:backend": "cd src/backend && npm run build",
+    "start": "concurrently --names \"FRONTEND,BACKEND\" --prefix-colors \"cyan,magenta\" \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "cd src/frontend && npm start",
+    "start:backend": "cd src/backend && npm start",
+    "install:all": "echo '📦 Installing root dependencies...' && npm install && echo '📦 Installing frontend dependencies...' && cd src/frontend && npm install && echo '📦 Installing backend dependencies...' && cd ../backend && npm install && echo '✅ All dependencies installed!'",
+    "test": "concurrently --names \"FRONTEND,BACKEND\" --prefix-colors \"cyan,magenta\" \"npm run test:frontend\" \"npm run test:backend\"",
+    "test:frontend": "cd src/frontend && npm test",
+    "test:backend": "cd src/backend && npm test",
+    "lint": "concurrently --names \"FRONTEND,BACKEND\" --prefix-colors \"cyan,magenta\" \"npm run lint:frontend\" \"npm run lint:backend\"",
+    "lint:frontend": "cd src/frontend && npm run lint",
+    "lint:backend": "cd src/backend && npm run lint"
   },
   "keywords": [
     "security",
